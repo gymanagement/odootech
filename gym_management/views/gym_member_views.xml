@@ -1,0 +1,43 @@
+<odoo>
+  <record id="view_form_gym_member" model="ir.ui.view">
+    <field name="name">gym.member.form</field>
+    <field name="model">gym.member</field>
+    <field name="arch" type="xml">
+      <form string="Gym Member">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="phone"/>
+            <field name="email"/>
+            <field name="id_number"/>
+            <field name="emergency_contact"/>
+            <field name="subscription_status"/>
+            <field name="goals"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+ <record id="view_tlist_gym_member" model="ir.ui.view">
+    <field name="name">gym.member.list</field>
+    <field name="model">gym.member</field>
+    <field name="arch" type="xml">
+      <list string="Gym Members">
+        <field name="name"/>
+        <field name="phone"/>
+        <field name="subscription_status"/>
+      </list>
+    </field>
+</record>
+
+  <record id="action_gym_member" model="ir.actions.act_window">
+    <field name="name">Gym Members</field>
+    <field name="res_model">gym.member</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem id="gym_menu_root" name="Gym Management"/>
+  <menuitem id="gym_menu_members" name="Members" parent="gym_menu_root"/>
+  <menuitem id="gym_menu_member_list" name="All Members" parent="gym_menu_members" action="action_gym_member"/>
+</odoo>

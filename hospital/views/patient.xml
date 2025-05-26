@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record id="patient_tree_view" model="ir.ui.view">
+            <field name="name">hospital.patient.tree</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type ="xml">
+                <tree>
+                    <field name="number"/>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="registeration"/>
+                    <field name="price"/>
+                    <field name="follow_up" invisible="1"/>
+                    <field name="birthdate" optional="hide"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="patient_form_view" model="ir.ui.view">
+            <field name="name">hospital.patient.form</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type = "xml">
+                <form>
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image"/>
+                        <group>
+                            <group>
+                                <field name="first_name"/>
+                                <field name="last_name"/>   
+                            </group>
+                            <group>
+                                <field name="registeration"/>
+                                <field name="follow_up" invisible="1"/>
+                                <field name="birthdate"/>
+                                <field name="age"/>
+                                <field name="age2"/>
+                            </group>
+                        </group>
+                            <notebook>
+                               <page string="Visits">
+                                    <field name="visits"/>
+                               </page>
+                                <page string="Number">
+                                     <group>
+                                        <field name="number"/>
+                                    </group>
+                                </page>
+                                <page string="Price">
+                                    <group>
+                                        <field name="price"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="patient_search_view" model="ir.ui.view">
+            <field name="name">hospital.patient.search</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type = "xml">
+                <search>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="number"/>
+                    <separator/>
+                    <filter name="inactive" string="Archived" domain="[('active','=',False)]"/>
+                    <group expand="1" string="Group By"/>
+                    <filter string="Status" name="status" context="{'group by':'status'}"/>
+                    <filter string="Birthdate" name="birthdate" context="{'group by':'birthdate'}"/>
+                </search>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="action_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">hospital.patient</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <record id="action_visit" model="ir.actions.act_window">
+            <field name="name">Visits</field>
+            <field name="res_model">hospital.visit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+          <record id="action_doctor" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="res_model">hospital.doctor</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+          <record id="action_drug" model="ir.actions.act_window">
+            <field name="name">Drugs</field>
+            <field name="res_model">hospital.drug</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="root_menu" name="Hospital Management System">
+            <menuitem id="menu_visit" name="Visits" action="action_visit" sequence="1"/>
+            <menuitem id="menu_patient" name="Patiens" action="action_patient" sequence="2"/>
+            <menuitem id="menu_doctor" name="Doctors" action="action_doctor" sequence="3"/>
+            <menuitem id="menu_drug" name="Drugs" action="action_drug" sequence="4"/>
+        </menuitem>
+
+    </data>
+</odoo>

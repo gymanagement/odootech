@@ -6,7 +6,7 @@
     'description': """ The first module to learn odoo 18.""",
     'category': 'tool',
     'website': '',
-    'depends': ['account','base', 'point_of_sale', 'stock', 'sale_management'],
+    'depends': ['account','base', 'point_of_sale', 'stock', 'sale_management','hr'],
     'data': [
         # 'security/gym_security.xml',
         'security/ir.model.access.csv',

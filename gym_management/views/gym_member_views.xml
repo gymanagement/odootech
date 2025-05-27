@@ -60,16 +60,17 @@
     </record>
 
      <!-- menus -->
-    <menuitem id="gym_menu_root" 
-        name="Gym Management System"/>
+    <!-- <menuitem id="gym_menu_root"  -->
+        <!-- name="Gym Management System"/> -->
 
     <menuitem id="gym_menu_members"     
         name="Members" 
-        parent="gym_menu_root"/>
+        parent="gym_management_root"/>
 
     <menuitem id="gym_menu_member_list" 
         name="All Members" 
         parent="gym_menu_members" 
-        action="action_gym_member"/>
+        action="action_gym_member"
+        sequence="10"/>
     
 </odoo>

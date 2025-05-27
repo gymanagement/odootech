@@ -1,0 +1,13 @@
+<odoo>
+
+<record id="membership_new_action" model="ir.actions.act_window">
+    <field name="name">Memberships</field>
+    <field name="res_model">membership.membership</field>
+    <field name="view_mode">kanban,form</field>
+</record>
+
+
+
+  <menuitem id="gym_menu_membership" name="Membership" parent="gym_menu_root" action="membership_new_action"/>
+
+</odoo>

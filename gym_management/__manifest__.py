@@ -13,6 +13,8 @@
         'views/sub_management.xml',
         'views/sale_order_line.xml',
         'views/gym_member_views.xml',
+        'views/gym_member.xml',
+        'views/membership_view.xml',
        
 
         

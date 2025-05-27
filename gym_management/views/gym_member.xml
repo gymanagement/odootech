@@ -1,0 +1,23 @@
+<odoo>
+
+<record id="member_new_action" model="ir.actions.act_window">
+    <field name="name">Members</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,form</field>
+</record>
+
+
+<record id="trainer_new_em_action" model="ir.actions.act_window">
+    <field name="name">Trainers</field>
+    <field name="res_model">hr.employee</field>
+    <field name="view_mode">kanban,form</field>
+</record>
+
+
+  <menuitem id="gym_menu_root" name="Gym Management"/>
+   <menuitem id="gym_menu_profile" name="Profile" parent="gym_menu_root"/>
+  <menuitem id="gym_menu_members" name="Members" parent="gym_menu_profile" action="member_new_action"/>
+  <menuitem id="gym_menu_emp_trainer" name="Trainers" parent="gym_menu_profile" action="trainer_new_em_action"/>
+
+
+</odoo>

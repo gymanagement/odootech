@@ -15,6 +15,8 @@
         'views/gym_member_views.xml',
         'views/gym_member.xml',
         'views/membership_view.xml',
+         'views/workout_plans_view.xml',
+        'views/workout_schedule_view.xml',
        
 
         

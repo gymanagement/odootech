@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <record id="view_workout_form" model="ir.ui.view">
+            <field name="name">workout plans</field>
+            <field name="model">workout.plans</field>
+            <field name="arch" type="xml">
+                <form class="o_form_view">
+                    <sheet>
+                        <div class="o_form_sheet_bg">
+                            <group col="3">
+                                <field name="name"/>
+                                <field name="goal"/>
+                                <field name="repeat"/>
+                            </group>
+                            <group col="3">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="comments"/>
+                            </group>
+                            <group>
+                                <field name="rout_ids" widget="many2many_tags"/>
+                            </group>
+                            <notebook>
+                                <page string="Workout Schedule">
+                                    <field name="rout_ids">
+                                        <list editable="bottom">
+                                            <field name="day"/>
+                                            <field name="exercise"/>
+                                            <field name="sets"/>
+                                            <field name="repeats"/>
+                                            <field name="rest_time"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_workout_list" model="ir.ui.view">
+            <field name="name">workout plans</field>
+            <field name="model">workout.plans</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="goal"/>
+                    <field name="repeat"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="comments"/>
+                </list>
+            </field>
+        </record>
+
+
+        <record id="workout_action" model="ir.actions.act_window">
+            <field name="name">workout plans</field>
+            <field name="res_model">workout.plans</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
+
+
+        <menuitem id="gym_workout_menu"
+                  name="Workout"
+                  parent="gym_menu_root"
+                  action="workout_action"
+                  sequence="50"/>
+        <menuitem id="gym_workout_plans_menu"
+                  name="Workout plans"
+                  parent="gym_workout_menu"
+                  sequence="2"
+                  action="workout_action"/>
+
+    </data>
+</odoo>

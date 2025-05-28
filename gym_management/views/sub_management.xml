@@ -22,7 +22,7 @@
 
 <menuitem id="sub_manage_menu"
     name="Subscriptions"
-    parent="gym_management_root"
+    parent="gym_menu_root"
     action="sub_new_management"
     sequence="20"/>
 

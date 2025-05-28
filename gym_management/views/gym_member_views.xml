@@ -69,8 +69,8 @@
 
     <menuitem id="gym_menu_member_list" 
         name="All Members" 
-        parent="gym_menu_members" 
+        parent="gym_menu_root" 
         action="action_gym_member"
-        sequence="10"/>
+        sequence="40"/>
     
 </odoo>

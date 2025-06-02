@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_gym_member_profile_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Member Profile: <span t-field="o.name"/></h2>
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Member ID:</strong> <span t-field="o.member_id"/><br/>
+                                    <strong>Email:</strong> <span t-field="o.email"/><br/>
+                                    <strong>Phone:</strong> <span t-field="o.phone"/><br/>
+                                    <strong>Date of Birth:</strong> <span t-field="o.date_of_birth"/><br/>
+                                    <strong>Gender:</strong> <span t-field="o.gender"/><br/>
+                                    <strong>Address:</strong> <span t-field="o.address"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Fitness Goals:</strong> <span t-field="o.fitness_goals"/><br/>
+                                    <strong>Health Conditions:</strong> <span t-field="o.health_conditions"/><br/>
+                                    <strong>Current Weight:</strong> <span t-field="o.weight"/> kg<br/>
+                                    <strong>Height:</strong> <span t-field="o.height"/> cm<br/>
+                                    <strong>BMI:</strong> <span t-field="o.bmi"/>
+                                </div>
+                            </div>
+                            <h3>Emergency Contact</h3>
+                            <div class="row mt16 mb16">
+                                <div class="col-6">
+                                    <strong>Name:</strong> <span t-field="o.emergency_contact_name"/><br/>
+                                    <strong>Phone:</strong> <span t-field="o.emergency_contact_phone"/><br/>
+                                    <strong>Relation:</strong> <span t-field="o.emergency_contact_relation"/>
+                                </div>
+                            </div>
+                            <h3>Active Subscription</h3>
+                            <t t-if="o.active_subscription_id">
+                                <div class="row mt16 mb16">
+                                    <div class="col-6">
+                                        <strong>Plan:</strong> <span t-field="o.active_subscription_id.plan_id.name"/><br/>
+                                        <strong>Start Date:</strong> <span t-field="o.active_subscription_id.start_date"/><br/>
+                                        <strong>End Date:</strong> <span t-field="o.active_subscription_id.end_date"/><br/>
+                                        <strong>Price:</strong> <span t-field="o.active_subscription_id.price"/> <span t-field="o.active_subscription_id.currency_id.symbol"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Status:</strong> <span t-field="o.active_subscription_id.state"/><br/>
+                                        <strong>Invoice:</strong> <span t-field="o.active_subscription_id.invoice_id.name"/><br/>
+                                        <strong>Payment Status:</strong> <span t-field="o.active_subscription_id.payment_status"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <p>No active subscription.</p>
+                            </t>
+                            <h3>Workout Plans</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Trainer</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.workout_plan_ids" t-as="plan">
+                                        <td><span t-field="plan.name"/></td>
+                                        <td><span t-field="plan.trainer_id.name"/></td>
+                                        <td><span t-field="plan.start_date"/></td>
+                                        <td><span t-field="plan.end_date"/></td>
+                                        <td><span t-field="plan.state"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3>Diet Plans</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Trainer</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.diet_plan_ids" t-as="plan">
+                                        <td><span t-field="plan.name"/></td>
+                                        <td><span t-field="plan.trainer_id.name"/></td>
+                                        <td><span t-field="plan.start_date"/></td>
+                                        <td><span t-field="plan.end_date"/></td>
+                                        <td><span t-field="plan.state"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3>Attendance History</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Check-in Time</th>
+                                        <th>Check-out Time</th>
+                                        <th>Duration (hours)</th>
+                                        <th>Type</th>
+                                        <th>Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.visit_history_ids" t-as="attendance">
+                                        <td><span t-field="attendance.attendance_date"/></td>
+                                        <td><span t-field="attendance.check_in_time"/></td>
+                                        <td><span t-field="attendance.check_out_time"/></td>
+                                        <td><span t-field="attendance.duration"/></td>
+                                        <td><span t-field="attendance.attendance_type"/></td>
+                                        <td><span t-field="attendance.class_id.name"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <template id="report_gym_subscription_details_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Subscription Details: <span t-field="o.name"/></h2>
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Member:</strong> <span t-field="o.member_id.name"/><br/>
+                                    <strong>Subscription Plan:</strong> <span t-field="o.plan_id.name"/><br/>
+                                    <strong>Start Date:</strong> <span t-field="o.start_date"/><br/>
+                                    <strong>End Date:</strong> <span t-field="o.end_date"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Price:</strong> <span t-field="o.price"/> <span t-field="o.currency_id.symbol"/><br/>
+                                    <strong>Status:</strong> <span t-field="o.state"/><br/>
+                                    <strong>Invoice:</strong> <span t-field="o.invoice_id.name"/><br/>
+                                    <strong>Payment Status:</strong> <span t-field="o.payment_status"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

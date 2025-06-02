@@ -1,0 +1,250 @@
+<odoo>
+    <data>
+        <!-- sequence -->
+        <record id="seq_gym_member" model="ir.sequence">
+            <field name="name">Gym Member Sequence</field>
+            <field name="code">gym.member.sequence</field>
+            <field name="prefix">GM/%(year)s</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!-- form view -->
+        <record id="gym_member_view_form" model="ir.ui.view">
+            <field name="name">gym.member.form</field>
+            <field name="model">gym.member</field>
+            <field name="arch" type="xml">
+                <form string="Gym Member">
+                    <header>
+                        <field name="subscription_status" widget="badge" decoration-success="subscription_status == 'active'" decoration-danger="subscription_status == 'expired'" decoration-warning="subscription_status == 'pending'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_subscriptions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-credit-card">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="subscription_ids" widget="statinfo" nolabel="1"/></span>
+                                    <span class="o_stat_text">Subscriptions</span>
+                                </div>
+                            </button>
+                            <button name="action_view_workout_plans"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-dumbbell">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="workout_plan_ids" widget="statinfo" nolabel="1"/></span>
+                                    <span class="o_stat_text">Workout Plans</span>
+                                </div>
+                            </button>
+                            <button name="action_view_diet_plans"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-apple-alt">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="diet_plan_ids" widget="statinfo" nolabel="1"/></span>
+                                    <span class="o_stat_text">Diet Plans</span>
+                                </div>
+                            </button>
+                            <button name="action_view_attendance"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-calendar-check">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="visit_history_ids" widget="statinfo" nolabel="1"/></span>
+                                    <span class="o_stat_text">Attendance</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_avatar" options='{"preview_image": "image_128"}'/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Member Name"/></h1>
+                            <label for="member_id" class="oe_edit_only"/>
+                            <h2><field name="member_id" readonly="1"/></h2>
+                        </div>
+                        <group>
+                            <group string="Personal Information">
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="date_of_birth"/>
+                                <field name="gender"/>
+                                <field name="address"/>
+                                <field name="id_upload" filename="id_filename"/>
+                                <field name="id_filename" invisible="1"/>
+                            </group>
+                            <group string="Emergency Contact">
+                                <field name="emergency_contact_name"/>
+                                <field name="emergency_contact_phone"/>
+                                <field name="emergency_contact_relation"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Fitness &amp; Health" name="fitness_health">
+                                <group>
+                                    <group>
+                                        <field name="fitness_goals"/>
+                                        <field name="health_conditions"/>
+                                    </group>
+                                    <group string="Progress Tracking">
+                                        <field name="weight"/>
+                                        <field name="height"/>
+                                        <field name="bmi"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Subscriptions" name="subscriptions">
+                                <field name="subscription_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="plan_id"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="price"/>
+                                        <field name="state" widget="badge" decoration-success="state == 'active'" decoration-danger="state == 'expired'" decoration-warning="state == 'pending'"/>
+                                        <field name="invoice_id"/>
+                                        <field name="payment_status" widget="badge" decoration-success="payment_status == 'paid'" decoration-danger="payment_status == 'not_paid'" decoration-warning="payment_status == 'in_payment'"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Workout &amp; Diet Plans" name="plans">
+                                <group>
+                                    <group string="Workout Plans">
+                                        <field name="workout_plan_ids" mode="kanban,list">
+                                            <kanban>
+                                                <field name="name"/>
+                                                <field name="trainer_id"/>
+                                                <field name="start_date"/>
+                                                <field name="end_date"/>
+                                                <templates>
+                                                    <t t-name="kanban-box">
+                                                        <div t-attf-class="oe_kanban_global_click">
+                                                            <div class="o_kanban_image">
+                                                                <img t-att-src="kanban_image('gym.workout.plan', 'image_1920', record.id)" alt="Workout Plan"/>
+                                                            </div>
+                                                            <div class="oe_kanban_details">
+                                                                <strong><field name="name"/></strong>
+                                                                <ul>
+                                                                    <li>Trainer: <field name="trainer_id"/></li>
+                                                                    <li>Period: <field name="start_date"/> - <field name="end_date"/></li>
+                                                                    <li>Status: <field name="state"/></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </templates>
+                                            </kanban>
+                                        </field>
+                                    </group>
+                                    <group string="Diet Plans">
+                                        <field name="diet_plan_ids" mode="kanban,list">
+                                            <kanban>
+                                                <field name="name"/>
+                                                <field name="trainer_id"/>
+                                                <field name="start_date"/>
+                                                <field name="end_date"/>
+                                                <templates>
+                                                    <t t-name="kanban-box">
+                                                        <div t-attf-class="oe_kanban_global_click">
+                                                            <div class="o_kanban_image">
+                                                                <img t-att-src="kanban_image('gym.diet.plan', 'image_1920', rec.id)" alt="Diet Plan"/>
+                                                            </div>
+                                                            <div class="oe_kanban_details">
+                                                                <strong><field name="name"/></strong>
+                                                                <ul>
+                                                                    <li>Trainer: <field name="trainer_id"/></li>
+                                                                    <li>Period: <field name="start_date"/> - <field name="end_date"/></li>
+                                                                    <li>Status: <field name="state"/></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </templates>
+                                            </kanban>
+                                        </field>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Class Bookings" name="class_bookings">
+                                <field name="class_booking_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="trainer_id"/>
+                                        <field name="start_time"/>
+                                        <field name="end_time"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Attendance History" name="attendance_history">
+                                <field name="visit_history_ids">
+                                    <list>
+                                        <field name="attendance_date"/>
+                                        <field name="check_in_time"/>
+                                        <field name="check_out_time"/>
+                                        <field name="duration"/>
+                                        <field name="attendance_type"/>
+                                        <field name="class_id"/>
+                                        <field name="trainer_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Portal Access" name="portal_access">
+                                <group>
+                                    <field name="user_id"/>
+                                    <button name="action_portal_ensure_user" type="object" string="Create Portal User" invisible="user_id != False"/>
+                                    <button name="get_portal_url" type="object" string="Get Portal URL" invisible="user_id == False"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- list view -->
+        <record id="gym_member_view_list" model="ir.ui.view">
+            <field name="name">gym.member.list</field>
+            <field name="model">gym.member</field>
+            <field name="arch" type="xml">
+                <list string="Gym Members" decoration-success="subscription_status == 'active'" decoration-danger="subscription_status == 'expired'" decoration-warning="subscription_status == 'pending'">
+                    <field name="member_id"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="active_subscription_id"/>
+                    <field name="subscription_status"/> <field name="gender"/>
+                    <field name="bmi"/>
+                </list>
+            </field>
+        </record>
+        <!-- search view -->
+        <record id="gym_member_view_search" model="ir.ui.view">
+            <field name="name">gym.member.search</field>
+            <field name="model">gym.member</field>
+            <field name="arch" type="xml">
+                <search string="Search Members">
+                    <field name="name"/>
+                    <field name="member_id"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="subscription_status"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Subscription Status" name="group_by_subscription_status" context="{'group_by': 'subscription_status'}"/>
+                        <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- action -->
+        <record id="action_gym_member" model="ir.actions.act_window">
+            <field name="name">Members</field>
+            <field name="res_model">gym.member</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new gym member</p>
+                <p>Manage member profiles, subscriptions, and progress.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

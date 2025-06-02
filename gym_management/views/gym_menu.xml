@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <menuitem id="menu_gym_root" name="Gym Management"/>
+
+        <menuitem id="menu_gym_members"
+            name="Members"
+            parent="menu_gym_root"
+            action="action_gym_member"
+            sequence="10"/>
+
+        <menuitem id="menu_gym_subscriptions_root"
+            name="Subscriptions"
+            parent="menu_gym_root"
+            sequence="20"/>
+
+        <menuitem id="menu_gym_subscription_plans"
+            name="Subscription Plans"
+            parent="menu_gym_subscriptions_root"
+            action="action_gym_subscription_plan"
+            sequence="10"/>
+
+        <menuitem id="menu_gym_subscriptions"
+            name="Member Subscriptions"
+            parent="menu_gym_subscriptions_root"
+            action="action_gym_subscription"
+            sequence="20"/>
+
+        <menuitem id="menu_gym_trainers"
+            name="Trainers"
+            parent="menu_gym_root"
+            action="action_gym_trainer"
+            sequence="30"/>
+
+        <menuitem id="menu_gym_plans_root"
+            name="Plans"
+            parent="menu_gym_root"
+            sequence="40"/>
+
+        <menuitem id="menu_gym_workout_plans"
+            name="Workout Plans"
+            parent="menu_gym_plans_root"
+            action="action_gym_workout_plan"
+            sequence="10"/>
+
+        <menuitem id="menu_gym_diet_plans"
+            name="Diet Plans"
+            parent="menu_gym_plans_root"
+            action="action_gym_diet_plan"
+            sequence="20"/>
+
+        <menuitem id="menu_gym_classes"
+            name="Classes"
+            parent="menu_gym_root"
+            action="action_gym_class"
+            sequence="50"/>
+
+        <menuitem id="menu_gym_attendance"
+            name="Attendance"
+            parent="menu_gym_root"
+            action="action_gym_attendance"
+            sequence="60"/>
+    </data>
+</odoo>

@@ -1,0 +1,149 @@
+<odoo>
+    <data>
+        <record id="seq_gym_subscription" model="ir.sequence">
+            <field name="name">Gym Subscription Sequence</field>
+            <field name="code">gym.subscription.sequence</field>
+            <field name="prefix">SUB/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="gym_subscription_plan_view_list" model="ir.ui.view">
+            <field name="name">gym.subscription.plan.list</field>
+            <field name="model">gym.subscription.plan</field>
+            <field name="arch" type="xml">
+                <list string="Subscription Plans">
+                    <field name="name"/>
+                    <field name="duration_value"/>
+                    <field name="duration_unit"/>
+                    <field name="price" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+        <record id="gym_subscription_plan_view_form" model="ir.ui.view">
+            <field name="name">gym.subscription.plan.form</field>
+            <field name="model">gym.subscription.plan</field>
+            <field name="arch" type="xml">
+                <form string="Subscription Plan">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Monthly, Quarterly, Yearly"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="duration_value"/>
+                                <field name="duration_unit"/>
+                                <field name="price" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_gym_subscription_plan" model="ir.actions.act_window">
+            <field name="name">Subscription Plans</field>
+            <field name="res_model">gym.subscription.plan</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new subscription plan</p>
+                <p>Define different membership tiers and their durations.</p>
+            </field>
+        </record>
+        <!-- list view -->
+        <record id="gym_subscription_view_list" model="ir.ui.view">
+            <field name="name">gym.subscription.list</field>
+            <field name="model">gym.subscription</field>
+            <field name="arch" type="xml">
+                <list string="Member Subscriptions" decoration-success="state == 'active'" decoration-danger="state == 'expired'" decoration-warning="state == 'pending'">
+                    <field name="name"/>
+                    <field name="member_id"/>
+                    <field name="plan_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="price" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state"/>
+                    <field name="invoice_id"/>
+                    <field name="payment_status" widget="badge" decoration-success="payment_status == 'paid'" decoration-danger="payment_status == 'not_paid'" decoration-warning="payment_status == 'in_payment'"/>
+                </list>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="gym_subscription_view_form" model="ir.ui.view">
+            <field name="name">gym.subscription.form</field>
+            <field name="model">gym.subscription</field>
+            <field name="arch" type="xml">
+                <form string="Member Subscription">
+                    <header>
+                        <button name="action_confirm_subscription" type="object" string="Generate Invoice" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_set_active" type="object" string="Set to Active" class="oe_highlight" confirm="Are you sure the invoice is paid and you want to activate this subscription?" invisible="state != 'pending'"/>
+                        <button name="action_cancel_subscription" type="object" string="Cancel Subscription" confirm="Are you sure you want to cancel this subscription?" invisible="state not in ['draft', 'pending', 'active']"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,pending,active,expired"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="member_id"/>
+                                <field name="plan_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group>
+                                <field name="price" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="invoice_id"/>
+                                <field name="payment_status" widget="badge" decoration-success="payment_status == 'paid'" decoration-danger="payment_status == 'not_paid'" decoration-warning="payment_status == 'in_payment'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search view -->
+        <record id="gym_subscription_view_search" model="ir.ui.view">
+            <field name="name">gym.subscription.search</field>
+            <field name="model">gym.subscription</field>
+            <field name="arch" type="xml">
+                <search string="Search Subscriptions">
+                    <field name="name"/>
+                    <field name="member_id"/>
+                    <field name="plan_id"/>
+                    <field name="state"/>
+                    <filter string="Active" name="active_subscriptions" domain="[('state', '=', 'active')]"/>
+                    <filter string="Expired" name="expired_subscriptions" domain="[('state', '=', 'expired')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="Plan" name="group_by_plan_id" context="{'group_by': 'plan_id'}"/>
+                        <filter string="Member" name="group_by_member_id" context="{'group_by': 'member_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- action -->
+        <record id="action_gym_subscription" model="ir.actions.act_window">
+            <field name="name">Subscriptions</field>
+            <field name="res_model">gym.subscription</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new member subscription</p>
+                <p>Manage member subscription details and invoicing.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

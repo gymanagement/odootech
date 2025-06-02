@@ -1,0 +1,120 @@
+<odoo>
+    <data>
+        <!-- list view -->
+        <record id="gym_trainer_view_list" model="ir.ui.view">
+            <field name="name">gym.trainer.list</field>
+            <field name="model">gym.trainer</field>
+            <field name="arch" type="xml">
+                <list string="Gym Trainers">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="expertise"/>
+                    <field name="class_ids" widget="many2many_tags"/>
+                </list>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="gym_trainer_view_form" model="ir.ui.view">
+            <field name="name">gym.trainer.form</field>
+            <field name="model">gym.trainer</field>
+            <field name="arch" type="xml">
+                <form string="Gym Trainer">
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options='{"preview_image": "image_128"}'/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Trainer Name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="expertise"/>
+                            </group>
+                            <group>
+                                <field name="certifications"/>
+                                <field name="bio"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Assigned Plans &amp; Classes" name="plans_classes">
+                                <group>
+                                    <group string="Workout Plans">
+                                        <field name="workout_plan_ids" mode="list">
+                                            <list>
+                                                <field name="name"/>
+                                                <field name="member_id"/>
+                                                <field name="start_date"/>
+                                                <field name="end_date"/>
+                                                <field name="state"/>
+                                            </list>
+                                        </field>
+                                    </group>
+                                    <group string="Diet Plans">
+                                        <field name="diet_plan_ids" mode="list">
+                                            <list>
+                                                <field name="name"/>
+                                                <field name="member_id"/>
+                                                <field name="start_date"/>
+                                                <field name="end_date"/>
+                                                <field name="state"/>
+                                            </list>
+                                        </field>
+                                    </group>
+                                </group>
+                                <group string="Scheduled Classes">
+                                    <field name="class_ids" mode="list,calendar">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="start_time"/>
+                                            <field name="end_time"/>
+                                            <field name="capacity"/>
+                                            <field name="current_bookings"/>
+                                            <field name="state"/>
+                                        </list>
+                                        <calendar string="Class Schedule" date_start="start_time" date_stop="end_time" color="trainer_id">
+                                            <field name="name"/>
+                                            <field name="trainer_id"/>
+                                        </calendar>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Schedule &amp; Feedback" name="schedule_feedback">
+                                <group>
+                                    <field name="schedule_notes"/>
+                                    <field name="feedback_notes"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search view -->
+        <record id="gym_trainer_view_search" model="ir.ui.view">
+            <field name="name">gym.trainer.search</field>
+            <field name="model">gym.trainer</field>
+            <field name="arch" type="xml">
+                <search string="Search Trainers">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="expertise"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Expertise" name="group_by_expertise" context="{'group_by': 'expertise'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- action -->
+        <record id="action_gym_trainer" model="ir.actions.act_window">
+            <field name="name">Trainers</field>
+            <field name="res_model">gym.trainer</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new gym trainer profile</p>
+                <p>Manage trainer details, expertise, and assigned plans/classes.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

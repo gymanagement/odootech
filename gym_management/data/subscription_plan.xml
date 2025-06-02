@@ -1,0 +1,31 @@
+<odoo>
+    <record id="gym_subscription_plan_monthly" model="gym.subscription.plan">
+            <field name="name">Monthly Membership</field>
+            <field name="duration_value">1</field>
+            <field name="duration_unit">month</field>
+            <field name="price">100.00</field>
+            <field name="description">Access to all gym facilities for one month.</field>
+    </record>
+    <record id="gym_subscription_plan_quarterly" model="gym.subscription.plan">
+        <field name="name">Quarterly Membership</field>
+        <field name="duration_value">3</field>
+        <field name="duration_unit">month</field>
+        <field name="price">270.00</field>
+        <field name="description">Access to all gym facilities for three months (10% discount).</field>
+    </record>
+    <record id="gym_subscription_plan_yearly" model="gym.subscription.plan">
+        <field name="name">Yearly Membership</field>
+        <field name="duration_value">1</field>
+        <field name="duration_unit">year</field>
+        <field name="price">1000.00</field>
+        <field name="description">Full access to all gym facilities for one year (16% discount).</field>
+    </record>
+    <record id="gym_subscription_plan_personal_training" model="gym.subscription.plan">
+        <field name="name">Personal Training Package (10 Sessions)</field>
+        <field name="duration_value">3</field>
+        <field name="duration_unit">month</field>
+        <field name="price">500.00</field>
+        <field name="description">10 personalized training sessions, valid for 3 months.</field>
+        <field name="active">True</field>
+    </record>
+</odoo>
